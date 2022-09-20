@@ -13,8 +13,14 @@ function AuthContextProvider({ children }) {
     addAccessToken(res.data.token);
   };
 
+  const login = async input => {
+    const res = await authService.login(input);
+    setUser(true);
+    addAccessToken(res.data.token);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, register }}>
+    <AuthContext.Provider value={{ user, register, login }}>
       {children}
     </AuthContext.Provider>
   );
