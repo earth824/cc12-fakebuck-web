@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
-import { toast } from 'react-toastify';
 import * as authService from '../api/authApi';
+import { addAccessToken } from '../utils/localStorage';
 
 const AuthContext = createContext();
 
@@ -9,7 +9,8 @@ function AuthContextProvider({ children }) {
 
   const register = async input => {
     const res = await authService.register(input);
-    // setUser
+    setTimeout(() => setUser(true), 1);
+    addAccessToken(res.data.token);
   };
 
   return (
