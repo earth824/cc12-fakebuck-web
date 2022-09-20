@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Modal from '../../components/ui/Modal';
 import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 
 function AuthForm() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,8 +18,8 @@ function AuthForm() {
           Create New Account
         </button>
       </div>
-      <Modal title="Test" open={isOpen} onClose={() => setIsOpen(false)}>
-        Modal Children Body
+      <Modal title="Sign Up" open={isOpen} onClose={() => setIsOpen(false)}>
+        <RegisterForm onSuccess={() => setIsOpen(false)} />
       </Modal>
     </div>
   );
