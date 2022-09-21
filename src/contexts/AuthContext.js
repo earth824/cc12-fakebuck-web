@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import * as authService from '../api/authApi';
-import Spinner from '../components/ui/Spinner';
 import {
   addAccessToken,
   getAccessToken,
@@ -14,19 +13,19 @@ function AuthContextProvider({ children }) {
   const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchMe = async () => {
       try {
-        await getMe();
+        if (getAccessToken()) {
+          await getMe();
+        }
       } catch (err) {
+        console.log(err);
       } finally {
         setInitialLoading(false);
       }
     };
-    if (getAccessToken()) {
-      fetch();
-    } else {
-      setInitialLoading(false);
-    }
+
+    fetchMe();
   }, []);
 
   const getMe = async () => {
@@ -36,14 +35,14 @@ function AuthContextProvider({ children }) {
 
   const register = async input => {
     const res = await authService.register(input);
-    setTimeout(() => setUser(true), 1);
     addAccessToken(res.data.token);
+    setTimeout(() => getMe(), 1);
   };
 
   const login = async input => {
     const res = await authService.login(input);
-    setUser(true);
     addAccessToken(res.data.token);
+    await getMe();
   };
 
   const logout = () => {
@@ -51,7 +50,6 @@ function AuthContextProvider({ children }) {
     removeAccessToken();
   };
 
-  if (initialLoading) return <Spinner />;
   return (
     <AuthContext.Provider
       value={{ user, register, login, logout, initialLoading }}

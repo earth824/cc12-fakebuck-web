@@ -1,12 +1,13 @@
 import Avatar from '../../components/ui/Avatar';
+import { useAuth } from '../../contexts/AuthContext';
 
 function DropdownToggle({ onClick }) {
+  const {
+    user: { profileImage }
+  } = useAuth();
   return (
     <div onClick={onClick}>
-      <Avatar
-        src="https://images.pexels.com/photos/5193860/pexels-photo-5193860.png"
-        size="40"
-      />
+      <Avatar src={profileImage} size="40" />
     </div>
   );
 }
