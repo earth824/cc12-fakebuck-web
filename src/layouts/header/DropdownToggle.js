@@ -1,8 +1,8 @@
 import Avatar from '../../components/ui/Avatar';
 
-function DropdownToggle() {
+function DropdownToggle({ onClick }) {
   return (
-    <div>
+    <div onClick={onClick}>
       <Avatar
         src="https://images.pexels.com/photos/5193860/pexels-photo-5193860.png"
         size="40"
