@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 function DropdownMenu({ open, onClose }) {
   const {
     logout,
-    user: { profileImage, firstName, lastName }
+    user: { profileImage, firstName, lastName, id }
   } = useAuth();
   return (
     <ul
@@ -15,7 +15,7 @@ function DropdownMenu({ open, onClose }) {
     >
       <li>
         <Link
-          to="/profile"
+          to={`/profile/${id}`}
           className="dropdown-item p-2 d-flex align-items-center gap-3 hover-bg-neutral-100 hover-rounded-lg"
           onClick={onClose}
         >
