@@ -1,15 +1,19 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useState } from 'react';
 
 const LoadingContext = createContext();
 
 function LoadingContextProvider({ children }) {
   const [loading, setLoading] = useState(false);
+
+  const startLoading = useCallback(() => setLoading(true), []);
+  const stopLoading = useCallback(() => setLoading(false), []);
+
   return (
     <LoadingContext.Provider
       value={{
         loading,
-        startLoading: () => setLoading(true),
-        stopLoading: () => setLoading(false)
+        startLoading,
+        stopLoading
       }}
     >
       {children}

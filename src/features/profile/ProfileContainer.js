@@ -40,7 +40,16 @@ function ProfileContainer() {
       }
     };
     fetchUserFriends();
-  }, [id, me]);
+  }, [id, me, startLoading, stopLoading]);
+
+  const changeStatusWithMe = nextStatus => {
+    setStatusWithMe(nextStatus);
+  };
+
+  const deleteFriend = () => {
+    const nextFriends = friends.filter(item => item.id !== me.id);
+    setFriends(nextFriends);
+  };
 
   return (
     <div
@@ -56,6 +65,8 @@ function ProfileContainer() {
         isAnonymous={statusWithMe === FRIEND_STATUS_ANNONYMOUS}
         isRequester={statusWithMe === FRIEND_STATUS_REQUESTER}
         isAccepter={statusWithMe === FRIEND_STATUS_ACCEPTER}
+        changeStatusWithMe={changeStatusWithMe}
+        deleteFriend={deleteFriend}
       />
     </div>
   );
