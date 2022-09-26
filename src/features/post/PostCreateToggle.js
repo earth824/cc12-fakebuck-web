@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { createPost } from '../../api/postApi';
 import Avatar from '../../components/ui/Avatar';
 import Modal from '../../components/ui/Modal';
 import { useAuth } from '../../contexts/AuthContext';
@@ -11,6 +12,12 @@ function PostCreateToggle() {
   } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const savePost = async input => {
+    await createPost(input);
+    setIsOpen(false);
+  };
+
   return (
     <div className="border bg-white shadow-sm px-3 rounded-lg tw-py-3">
       <div className="d-flex gap-2">
@@ -25,7 +32,7 @@ function PostCreateToggle() {
         </button>
       </div>
       <Modal title="Create Post" open={isOpen} onClose={() => setIsOpen(false)}>
-        <PostForm onSubmit />
+        <PostForm onSubmit={savePost} />
       </Modal>
     </div>
   );
