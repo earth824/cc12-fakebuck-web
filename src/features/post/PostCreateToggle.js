@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { createPost } from '../../api/postApi';
 import Avatar from '../../components/ui/Avatar';
 import Modal from '../../components/ui/Modal';
 import { useAuth } from '../../contexts/AuthContext';
 import PostForm from './PostForm';
 
-function PostCreateToggle() {
+function PostCreateToggle({ createPost }) {
   const {
     user: { id, profileImage, firstName }
   } = useAuth();
